@@ -1,4 +1,4 @@
-var util = {
+var methods = {
 
   /**
    * @desc 验证特殊字符
@@ -27,3 +27,5 @@ var util = {
     return result;
   }
 };
+
+module.exports = methods;
