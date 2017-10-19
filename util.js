@@ -12,16 +12,18 @@ var util = {
   /**
    * @desc 计算字符串的长度，支持中文
    */
-  getStrLen: function (val) {
-    var len = 0;
-    for (var i = 0; i < val.length; i++) {
-      var a = val.charAt(i);
-      if (a.match(/[^\x00-\xff]/ig) !== null) {
-        len += 2;
+  getStrLen: function (str) {
+    var result = 0;
+    var tempCharacter;
+
+    for (var i = 0, len = str.length; i < len; i++) {
+      var tempCharacter = str.charAt(i);
+      if (tempCharacter.match(/[^\x00-\xff]/ig) !== null) {
+        result += 2;
       } else {
-        len += 1;
+        result += 1;
       }
     }
-    return len;
+    return result;
   }
 };
