@@ -22,8 +22,8 @@ var methods = {
 
   /**
    * 格式化日期
-   * @param {string} date, 日期的时间戳(单位:ms)
-   * @param {boolean} format, 格式化需要的模版
+   * @param {string|number} date, 日期的时间戳(单位:ms)
+   * @param {string} format, 格式化需要的模版
    * @return {string} 格式化后的日期
    */
   dateformat: function (timer, format) {
