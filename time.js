@@ -20,7 +20,7 @@ var methods = {
   },
 
   /**
-   * 格式化日期
+   * @desc 格式化日期
    * @param {string|number} date, 日期的时间戳(单位:ms)
    * @param {string} format, 格式化需要的模版
    * @return {string} 格式化后的日期
@@ -39,7 +39,7 @@ var methods = {
     return timer;
 
     /**
-     * 数字标准化，个位数前面补0
+     * @desc 数字标准化，个位数前面补0
      * @param {(string|number)} n, 要标准化的数字
      * @return {number} 标准化后的数字
      */
@@ -56,7 +56,7 @@ var methods = {
   },
 
     /**
-   * 函数节流函数
+   * @desc 函数节流函数
    * @param  {Function} func  需要节流的目标函数
    * @param  {?Object} wait 间隔时间
    */
