@@ -11,7 +11,7 @@ export default class AxiosRequest {
     return new Promise((resolve, reject) => {
       axios(options).then((res) => {
         if (res.status === 200) {
-          if (res.data && res.data.errno === 0) {
+          if (res.data) {
             resolve(res.data);
           }
           reject(res.data);
