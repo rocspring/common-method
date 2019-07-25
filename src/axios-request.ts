@@ -1,15 +1,25 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
-export default class AxiosRequest {
-  constructor(options = {}) {
+interface AxiosRequestInterface {
+  options?: Object,
+  request: Function,
+  get: Function,
+  post: Function,
+}
+ 
+
+export default class AxiosRequest implements AxiosRequestInterface {
+  options: AxiosRequestConfig;
+
+  constructor(options : AxiosRequestConfig = {}) {
     options.withCredentials = options.withCredentials || true;
     this.options = options;
   }
 
-  request(opt) {
+  request(opt: AxiosRequestConfig = {}) {
     const options = Object.assign(this.options, opt);
-    return new Promise((resolve, reject) => {
-      axios(options).then((res) => {
+    return new Promise((resolve: Function, reject: Function) => {
+      axios(options).then((res: any) => {
         if (res.status === 200) {
           if (res.data) {
             resolve(res.data);
@@ -22,7 +32,7 @@ export default class AxiosRequest {
           errmsg: res.statusText,
           data: {},
         });
-      }).catch((err) => {
+      }).catch((err: any) => {
         // eslint-disable-next-line
         reject({
           errno: -1111,
@@ -33,7 +43,7 @@ export default class AxiosRequest {
     });
   }
 
-  get(url, opt) {
+  get(url: String, opt: AxiosRequestConfig) {
     const options = Object.assign(this.options, opt, {
       url,
       method: 'get',
@@ -41,7 +51,7 @@ export default class AxiosRequest {
     return this.request(options);
   }
 
-  post(url, opt) {
+  post(url: String, opt: AxiosRequestConfig) {
     const options = Object.assign(this.options, opt, {
       url,
       method: 'post',
