@@ -7,14 +7,13 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 }
 
 export interface IAxiosRequest {
-  options?: {},
   request(params: AxiosRequestConfig) : Promise<IResponse>,
   get(url: string, params: AxiosRequestConfig) : Promise<IResponse>,
   post(url: string, params: AxiosRequestConfig) : Promise<IResponse>,
 }
 
 export default class AxiosRequest implements IAxiosRequest {
-  options: AxiosRequestConfig;
+  private options: AxiosRequestConfig;
 
   constructor(options : AxiosRequestConfig = {}) {
     options.withCredentials = options.withCredentials || true;
