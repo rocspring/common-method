@@ -1,19 +1,19 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-export interface AxiosRequestInterface {
-  options?: Object,
-  request(params: AxiosRequestConfig) : Promise<{}>,
-  get(url: string, params: AxiosRequestConfig) : Promise<{}>,
-  post(url: string, params: AxiosRequestConfig) : Promise<{}>,
-}
-
-interface Response {
+ interface IResponse  {
   errno: number,
-  data: any,
+  data: {} | [] | null,
   errmsg: string 
 }
 
-export default class AxiosRequest implements AxiosRequestInterface {
+export interface IAxiosRequest {
+  options?: {},
+  request(params: AxiosRequestConfig) : Promise<IResponse>,
+  get(url: string, params: AxiosRequestConfig) : Promise<IResponse>,
+  post(url: string, params: AxiosRequestConfig) : Promise<IResponse>,
+}
+
+export default class AxiosRequest implements IAxiosRequest {
   options: AxiosRequestConfig;
 
   constructor(options : AxiosRequestConfig = {}) {
@@ -23,27 +23,27 @@ export default class AxiosRequest implements AxiosRequestInterface {
 
   request(opt: AxiosRequestConfig = {}) {
     const options = Object.assign(this.options, opt);
-    return new Promise<{}>((resolve: Function, reject: Function) => {
-      axios(options).then((res: any) => {
+    return new Promise<IResponse>((resolve: Function, reject: Function) => {
+      axios(options).then((res: AxiosResponse) => {
         if (res.status === 200) {
           if (res.data) {
-            resolve(res.data as Response);
+            resolve(res.data);
           }
-          reject(res.data as Response);
+          reject(res.data);
         }
         // eslint-disable-next-line
         reject({
           errno: res.status,
           errmsg: res.statusText,
           data: {},
-        } as Response);
+        });
       }).catch((err: any) => {
         // eslint-disable-next-line
         reject({
           errno: -1111,
           errmsg: (err && err.message) ? err.message : 'Unknow Error',
           data: {},
-        } as Response);
+        });
       });
     });
   }
